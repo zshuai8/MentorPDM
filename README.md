@@ -1,14 +1,35 @@
 # MentorPDM: Learning Data-Driven Curriculum for Multi-Modal Predictive Maintenance
 
-## Datasets
-We use the Paderborn Bearing Dataset, Paderborn for Domain Adaptation Dataset, and FEMTO dataset for evaluation
+This repository contains utilities and scripts to train simple models on the Paderborn bearing dataset. The original exploratory work was provided in `MentorPDM.ipynb`. The repository now exposes a lightweight Python package with data loading, model definition, training and evaluation helpers.
 
-## Download Instructions for the Paderborn Dataset
-Follow these steps to download each dataset:
+## Installation
 
-1. Visit the [official website](https://mb.uni-paderborn.de/konstruktions-und-antriebstechnik-kat/forschung/kat-datacenter/bearing-datacenter/data-sets-and-download) of the Paderborn Bearing Dataset.
-2. Visit the [official website](https://researchdata.ntu.edu.sg/dataset.xhtml?persistentId=doi:10.21979/N9/X6M827) of the Paderborn for Domain Adaptation Dataset.
-3. Visit the [official website](https://www.nasa.gov/content/prognostics-center-of-excellence-data-set-repository) of the FEMTO Dataset.
-4. Visit the [official website](https://data.mendeley.com/datasets/cbv7jyx4p9/3) of the HUST Dataset.
+Install the required packages with:
 
+```bash
+pip install -r requirements.txt
+```
 
+## Dataset
+
+Download the Paderborn Bearing dataset from the [official website](https://mb.uni-paderborn.de/konstruktions-und-antriebstechnik-kat/forschung/kat-datacenter/bearing-datacenter/data-sets-and-download) and extract it locally. Organise the files so that each bearing class is stored in a separate folder containing the `.mat` files.
+
+## Training
+
+Run training by pointing to the root directory containing the dataset:
+
+```bash
+python -m mentorpdm.train /path/to/dataset --epochs 20
+```
+
+This will save the trained model weights to `model.pth`.
+
+## Evaluation
+
+To evaluate a saved model run:
+
+```bash
+python -m mentorpdm.evaluate /path/to/dataset model.pth
+```
+
+This reports the validation loss and accuracy.
