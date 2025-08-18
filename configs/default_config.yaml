@@ -1,0 +1,215 @@
+# MentorPDM Configuration File
+# Multi-modal Graph Neural Network for Predictive Maintenance
+
+# General settings
+seed: 42
+use_gpu: true
+gpu_id: 0
+
+# Data configuration
+data:
+  # Path to the bearing data directory
+  data_path: "./BearingDataCenter/K001"
+  # Data category to use (vibration_1, force, phase_current_1, etc.)
+  data_category: "vibration_1"
+  # Length of signal segments for training
+  segment_length: 512
+  # Whether to normalize signals
+  normalize: true
+  # Overlap between segments (0.0 to 1.0)
+  overlap: 0.5
+  # Extract comprehensive features
+  extract_features: true
+  # Data split ratios
+  test_size: 0.2
+  val_size: 0.1
+  # Number of workers for data loading
+  num_workers: 4
+  # Batch size for training
+  batch_size: 32
+
+# Model configuration
+model:
+  # Model architecture
+  hidden_dim: 128
+  output_dim: 3  # Number of classes (NORMAL, IR, OR)
+  num_modality: 6  # Number of input modalities
+  num_heads: 4  # Number of attention heads
+  dropout: 0.1
+  # Graph construction
+  k_neighbors: 8
+  # Model features
+  use_curriculum: true
+  use_contrastive: true
+  # Save directory for model checkpoints
+  save_dir: "./checkpoints"
+
+# Training configuration
+training:
+  # Optimizer settings
+  optimizer: "adam"
+  learning_rate: 0.001
+  weight_decay: 1e-4
+  # Learning rate scheduler
+  scheduler: "reduce_on_plateau"
+  scheduler_patience: 10
+  scheduler_factor: 0.5
+  # Training parameters
+  epochs: 200
+  # Early stopping
+  early_stopping_patience: 20
+  # Contrastive learning settings
+  contrastive_epochs: 50
+  contrastive_margin: 1.0
+  contrastive_batch_size: 64
+  # Curriculum learning settings
+  curriculum_start_coeff: 0.1
+  curriculum_end_coeff: 1.0
+  curriculum_decay_steps: 100
+  # Loss weights
+  node_loss_weight: 1.0
+  contrastive_loss_weight: 0.5
+  curriculum_loss_weight: 0.3
+  diversity_loss_weight: 0.1
+  # Validation frequency
+  val_every_n_epochs: 5
+  # Save frequency
+  save_every_n_epochs: 10
+
+# Loss function configuration
+loss:
+  # Primary loss function
+  primary_loss: "cross_entropy"
+  # Contrastive loss settings
+  contrastive_margin: 1.0
+  contrastive_temperature: 0.07
+  # Curriculum learning
+  curriculum_lambda: 0.1
+  # Multi-modal diversity loss
+  diversity_lambda: 0.05
+
+# Evaluation configuration
+evaluation:
+  # Metrics to compute
+  metrics: ["accuracy", "precision", "recall", "f1_macro", "f1_weighted"]
+  # Whether to save predictions
+  save_predictions: true
+  # Whether to plot confusion matrix
+  plot_confusion_matrix: true
+  # Whether to compute per-class metrics
+  per_class_metrics: true
+
+# Logging configuration
+logging:
+  # Log directory
+  log_dir: "./logs"
+  # Log level
+  log_level: "INFO"
+  # Whether to log to wandb
+  use_wandb: false
+  wandb_project: "MentorPDM"
+  wandb_entity: null
+  # TensorBoard logging
+  use_tensorboard: true
+  tensorboard_dir: "./runs"
+
+# Output configuration
+output:
+  # Results directory
+  results_dir: "./results"
+  # Plots directory
+  plots_dir: "./plots"
+  # Whether to save training curves
+  save_training_curves: true
+  # Whether to save model architecture diagram
+  save_model_diagram: false
+
+# Hardware configuration
+hardware:
+  # Use mixed precision training
+  use_amp: true
+  # Gradient clipping
+  grad_clip_norm: 1.0
+  # Number of GPUs to use
+  num_gpus: 1
+  # Distributed training
+  distributed: false
+
+# Reproducibility
+reproducibility:
+  # Deterministic algorithms
+  deterministic: true
+  # Benchmark mode
+  benchmark: false
+
+# Hyperparameter search (optional)
+hyperparameter_search:
+  # Whether to enable hyperparameter search
+  enabled: false
+  # Search method (grid, random, bayesian)
+  method: "random"
+  # Number of trials
+  num_trials: 50
+  # Parameters to search
+  search_space:
+    learning_rate: [0.0001, 0.001, 0.01]
+    hidden_dim: [64, 128, 256]
+    num_heads: [2, 4, 8]
+    dropout: [0.0, 0.1, 0.2, 0.3]
+
+# Advanced model configuration
+advanced:
+  # Attention mechanism settings
+  attention:
+    # Attention dropout
+    attention_dropout: 0.1
+    # Use positional encoding
+    use_positional_encoding: false
+    # Maximum sequence length for positional encoding
+    max_seq_length: 1024
+  
+  # Graph neural network settings
+  gnn:
+    # GNN layers
+    num_gnn_layers: 2
+    # Aggregation method
+    aggregation: "mean"
+    # Skip connections
+    use_skip_connections: true
+    # Graph normalization
+    graph_norm: "batch"
+  
+  # Regularization
+  regularization:
+    # Spectral normalization
+    spectral_norm: false
+    # Batch normalization
+    batch_norm: true
+    # Layer normalization
+    layer_norm: false
+    # Gradient penalty
+    gradient_penalty: 0.0
+
+# Data augmentation
+augmentation:
+  # Whether to use data augmentation
+  enabled: false
+  # Noise injection
+  noise_std: 0.01
+  # Time warping
+  time_warp: false
+  # Frequency masking
+  freq_mask: false
+  # Time masking
+  time_mask: false
+
+# Inference configuration
+inference:
+  # Batch size for inference
+  batch_size: 64
+  # Whether to use test time augmentation
+  tta: false
+  # Number of TTA samples
+  tta_samples: 5
+  # Confidence threshold
+  confidence_threshold: 0.5
