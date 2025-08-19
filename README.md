@@ -8,7 +8,7 @@ Official implementation of **MentorPDM** for the KDD paper: *"MentorPDM: Learnin
 
 ## Overview
 
-MentorPDM is a novel multi-modal graph neural network designed for predictive maintenance tasks. The model leverages multi-head attention mechanisms and graph-based representations to analyze multi-sensor industrial data for fault diagnosis and condition monitoring.
+MentorPDM is a novel framework designed to address critical challenges in predictive maintenance systems for industrial assets such as bearings in rotating machinery.
 
 ### Key Features
 
