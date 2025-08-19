@@ -8,7 +8,7 @@ Official implementation of **MentorPDM** for the KDD paper: *"MentorPDM: Learnin
 
 ## Overview
 
-MentorPDM is a novel framework designed to address critical challenges in predictive maintenance systems for industrial assets such as bearings in rotating machinery.
+MentorPDM is a novel multi-modal graph neural network-based curriculum learning framework designed to address critical challenges in predictive maintenance systems for industrial assets such as bearings in rotating machinery. 
 
 ### Key Features
 
