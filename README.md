@@ -30,7 +30,7 @@ MentorPDM is a novel multi-modal graph neural network designed for predictive ma
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/your-repo/MentorPDM.git
+git clone https://github.com/zshuai8/MentorPDM.git
 cd MentorPDM
 ```
 
